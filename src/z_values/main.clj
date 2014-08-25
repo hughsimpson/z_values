@@ -4,11 +4,6 @@
   (:gen-class))
 ;;define 'sum' function
 (defn sum [seq] (reduce (fn [a b] (+ a b)) seq))
-;;raw data
-(def data
-  (with-open [in-file (io/reader "resources/dummyData.csv")]
-    (doall
-      (csv/read-csv in-file))))
 ;;z-value function
 (defn z_values [seq]
   (let [mean (/ (sum seq) (count seq))
@@ -16,6 +11,11 @@
         variance (sum squares)
         sd (Math/sqrt variance)]
     (map #(/ (- % mean) sd) seq)))
+;;raw data
+(def data
+  (with-open [in-file (io/reader "resources/dummyData.csv")]
+    (doall
+      (csv/read-csv in-file))))
 ;; value seqs
 (def lengths (map #(let [[x _] %] (Double/parseDouble x)) (rest data)))
 (def widths (map #(let [[_ x] %] (Double/parseDouble x)) (rest data)))
