@@ -17,15 +17,14 @@
         sd (Math/sqrt variance)]
     (map #(/ (- % mean) sd) seq)))
 ;; value seqs
-(def lengths (map #(let [[x _] %] (Double/parseDouble x)) (rest data) ))
-(def widths (map #(let [[_ x] %] (Double/parseDouble x)) (rest data) ))
-;;final z-values
-(def width_z_values (z_values widths))
-(def length_z_values (z_values lengths))
-
+(def lengths (map #(let [[x _] %] (Double/parseDouble x)) (rest data)))
+(def widths (map #(let [[_ x] %] (Double/parseDouble x)) (rest data)))
+;; write to csv
 (defn write [seq]
   (with-open [out-file (io/writer "resources/out-file2.csv")]
     (csv/write-csv out-file
       seq)))
-
-(defn -main [] (write (map vector length_z_values width_z_values)))
+;; main function
+(defn -main []
+  (write
+    (map vector (z_values lengths) (z_values widths))))
