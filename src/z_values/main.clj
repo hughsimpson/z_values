@@ -3,7 +3,7 @@
             [clojure.java.io :as io])
   (:gen-class))
 ;;define 'sum' function
-(defn sum [seq] (reduce (fn [a b] (+ a b)) seq))
+(defn sum [seq] (reduce #(+ %1 %2) seq))
 ;;z-value function
 (defn z_values [seq]
   (let [mean (/ (sum seq) (count seq))
