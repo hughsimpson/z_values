@@ -6,11 +6,11 @@
 (defn sum [seq] (reduce #(+ %1 %2) seq))
 ;;z-value function
 (defn z_values [seq]
-  (let [mean (/ (sum seq) (count seq))
-        squares (map #(* (- %1 mean) (- %1 mean)) seq)
-        variance (/ (sum squares) (- (count seq) 1))
-        sd (Math/sqrt variance)] ;; sample standard deviation
-    (map #(/ (- % mean) sd) seq)))
+  (let [mean                          (/ (sum seq) (count seq))
+        squared_difference_from_mean  (map #(* (- %1 mean) (- %1 mean)) seq)
+        variance                      (/ (sum squared_difference_from_mean) (- (count seq) 1))
+        standard_deviation            (Math/sqrt variance)] ;; _sample_ standard deviation
+    (map #(/ (- % mean) standard_deviation) seq)))
 ;;raw data
 (def data
   (with-open [in-file (io/reader "resources/dummyData.csv")]
