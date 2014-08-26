@@ -7,9 +7,9 @@
 ;;z-value function
 (defn z_values [seq]
   (let [mean (/ (sum seq) (count seq))
-        squares (map #(* %1 %1) seq)
-        variance (sum squares)
-        sd (Math/sqrt variance)]
+        squares (map #(* (- %1 mean) (- %1 mean)) seq)
+        variance (/ (sum squares) (- (count seq) 1))
+        sd (Math/sqrt variance)] ;; sample standard deviation
     (map #(/ (- % mean) sd) seq)))
 ;;raw data
 (def data
